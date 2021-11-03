@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eat.c                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 16:15:55 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/08/13 15:07:54 by mdiallo          ###   ########.fr       */
+/*   Created: 2021/11/03 16:51:17 by mdiallo           #+#    #+#             */
+/*   Updated: 2021/11/03 17:25:41 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-void	eat(t_philo *philo)
+int		main(int argc, char **argv)
 {
-	sem_wait(philo->mutex);
-	philo->is_eating = 1;
-	philo->last_eat = get_time();
-	philo->limit = philo->last_eat + philo->state->time_to_die;
-	display_message(philo, TYPE_EAT);
-	usleep(philo->state->time_to_eat * 1000);
-	philo->eat_c++;
-	philo->is_eating = 0;
-	sem_post(philo->mutex);
-	sem_post(philo->eat);
+	t_rules	rules;
+	int		ret;
+
+	if (argc != 5 && argc != 6)
+		return (write_error("Wrong amount of arguments"));
+	ret = init_all(&rules, argv);
+	if (ret)
+		return (error_manager(ret));
+	if (launcher(&rules))
+		return (write_error("There was an error creating the threads"));
+	return (0);
 }

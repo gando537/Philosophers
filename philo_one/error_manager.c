@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   forks.c                                            :+:      :+:    :+:   */
+/*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 16:16:22 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/08/13 15:09:53 by mdiallo          ###   ########.fr       */
+/*   Created: 2021/11/03 16:48:52 by mdiallo           #+#    #+#             */
+/*   Updated: 2021/11/03 16:49:27 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-void	take_forks(t_philo *philo)
+int	write_error(char *str)
 {
-	sem_wait(philo->state->fork_);
-	display_message(philo, TYPE_FORK);
-	sem_wait(philo->state->fork_);
-	display_message(philo, TYPE_FORK);
+	int len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	write(2, "Error: ", 7);
+	write(2, str, len);
+	write(2, "\n", 1);
+	return (1);
 }
 
-void	clean_forks(t_philo *philo)
+int	error_manager(int error)
 {
-	display_message(philo, TYPE_SLEEP);
-	sem_post(philo->state->fork_);
-	sem_post(philo->state->fork_);
-	usleep(philo->state->time_to_sleep * 1000);
+	if (error == 1)
+		return (write_error("At least one wrong argument"));
+	if (error == 2)
+		return (write_error("Fatal error when intializing mutex"));
+	return (1);
 }
