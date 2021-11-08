@@ -1,0 +1,128 @@
+Vous devrez rédiger un programme pour la partie obligatoire et un pour la partie bonus
+mais ils auront les mêmes règles de base :
+• Ce projet doit être codé en C, suivant la Norme. Toute fuite, crash, indéfini
+comportement, ou erreur de norme signifie 0 pour le projet.
+
+• Un ou plusieurs philosophes sont assis à une table ronde et font l'une des trois choses suivantes :
+manger, penser ou dormir.
+• En mangeant, ils ne pensent pas ou ne dorment pas, en dormant, ils ne mangent pas
+ou ne pensent pas et bien sûr, en pensant, ils ne mangent ni ne dorment.
+• Les philosophes sont assis à une table circulaire avec un grand bol de spaghetti au centre.
+• Il y a des fourchettes sur la table.
+• Comme les spaghettis sont difficiles à servir et à manger avec une seule fourchette, on suppose qu'un philosophe doit manger avec deux fourchettes, une pour chaque main.
+• Les philosophes ne doivent jamais mourir de faim.
+• Tout philosophe a besoin de manger.
+• Les philosophes ne se parlent pas.
+• Les philosophes ne savent pas quand un autre philosophe est sur le point de mourir.
+• Chaque fois qu'un philosophe a fini de manger, il laisse tomber ses fourchettes et commence à dormir.
+• Quand un philosophe aura fini de dormir, il commencera à réfléchir.
+• La simulation s'arrête à la mort d'un philosophe.
+• Chaque programme doit avoir les mêmes options : nombre_de_philosophes time_to_die
+time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+nombre_de_philosophes : est le nombre de philosophes et aussi le nombre
+de fourchettes
+◦ time_to_die : est en millisecondes, si un philosophe ne commence pas à manger 'time_to_die'
+millisecondes après avoir commencé son dernier repas ou le début de la simulation, il
+meurt.
+◦ time_to_eat : est en millisecondes et est le temps qu'il faut à un philosophe pour
+manger. Pendant ce temps, il devra garder les deux fourches.
+◦ time_to_sleep : est en millisecondes et est le temps que le philosophe passera
+en train de dormir.
+number_of_times_each_philosopher_must_eat : l'argument est facultatif, si tous
+les philosophes mangent au moins 'number_of_time_each_philosopher_must_eat' le
+la simulation s'arrêtera. Si non précisé, la simulation ne s'arrêtera qu'au décès
+d'un philosophe.
+• Chaque philosophe doit recevoir un numéro de 1 à « nombre_de_philosophes ».
+• Le philosophe numéro 1 est à côté du numéro de philosophe « nombre_de_philosophes ».
+Tout autre philosophe portant le nombre N est assis entre le philosophe N - 1 et
+philosophe N+1
+• Tout changement de statut d'un philosophe doit s'écrire comme suit (avec X remplacé
+avec le numéro de philosophe et timestamp_in_ms l'horodatage actuel en millisecondes)
+◦ timestamp_in_ms X a pris un fork
+◦ timestamp_in_ms X mange
+◦ timestamp_in_ms X dort
+◦ timestamp_in_ms X pense
+◦ timestamp_in_ms X est mort
+• Le statut imprimé ne doit pas être brouillé ou entrelacé avec le statut d'un autre philosophe.
+• Vous ne pouvez pas avoir plus de 10 ms entre la mort d'un philosophe et le moment où il
+imprimera sa mort.
+• Encore une fois, les philosophes devraient éviter de mourir !
+
+Une fourchette entre chaque philosophe, donc si ce sont plusieurs philosophes, il y a
+sera une fourche à droite et à gauche de chaque philosophe.
+• Pour éviter que les philosophes dupliquent les fourchettes, vous devez protéger l'état des fourchettes avec un mutex pour chacun d'eux.
+• Chaque philosophe doit être un fil.
+
+BONUS
+
+Dans cette version, les règles spécifiques sont :
+• Toutes les fourchettes sont au milieu de la table.
+• Ils n'ont pas d'états en mémoire mais le nombre de fourchettes disponibles est représenté par
+un sémaphore.
+• Chaque philosophe doit être un processus et le processus principal ne doit pas être un philosophe.
+
+
+
+--------------------------------------CORRECTION--------------------------------
+
+
+vérifie le code de philo pour les choses suivantes et demande une explication
+
+vérifier s'il y a un fil par philosophe
+
+vérifie qu'il n'y a qu'une fourchette par philosophe
+
+vérifier s'il y a un mutex par fourche et qu'il est utilisé pour vérifier la valeur de la fourche et/ou la modifier
+
+vérifier que la sortie ne doit jamais produire une vue brouillée
+
+vérifier comment la mort d'un philosophe est vérifiée et s'il y a un mutex pour protéger qu'un philosophe meurt et commence à manger en même temps
+
+vérifier les différents temps (un décès retardé de plus de 10ms est inacceptable)
+
+test avec 1 800 200 200 7, le philosophe ne doit pas manger et doit mourir
+
+test avec 5 800 200 200 , personne ne devrait mourir
+
+test avec 5 800 200 200 7, personne ne doit mourir et la simulation doit s'arrêter lorsque tous les philosophes ont mangé au moins 7 fois chacun
+
+test avec 4 410 200 200 7, personne ne devrait mourir
+
+test avec 4 310 200 200 7, un philosophe devrait mourir
+
+BONUS
+
+vérifier s'il y aura un processus par philosophe et que le premier processus les attend tous
+
+vérifier s'il y a un seul sémaphore qui représente le nombre de fourches
+
+vérifier si la sortie est protégée contre les accès multiples. Pour éviter une vue brouillée
+
+vérifier comment la mort d'un philosophe est vérifiée et s'il y a un sémaphore pour protéger qu'un philosophe meurt et commence à manger en même temps
+
+test avec 5 800 200 200 , personne ne devrait mourir
+
+test avec 5 800 200 200 7, personne ne doit mourir et la simulation doit s'arrêter lorsque tous les philosophes ont mangé au moins 7 fois chacun
+
+test avec 4 410 200 200 7, personne ne devrait mourir
+
+test avec 4 310 200 200 7, un philosophe devrait mourir
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 16:51:17 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/03 17:25:41 by mdiallo          ###   ########.fr       */
+/*   Created: 2021/07/19 16:15:55 by mdiallo           #+#    #+#             */
+/*   Updated: 2021/11/08 17:22:49 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philosophers.h"
 
-int		main(int argc, char **argv)
+void	eat(t_philo *philo)
 {
-	t_rules	rules;
-	int		ret;
-
-	if (argc != 5 && argc != 6)
-		return (write_error("Wrong amount of arguments"));
-	ret = init_all(&rules, argv);
-	if (ret)
-		return (error_manager(ret));
-	if (launcher(&rules))
-		return (write_error("There was an error creating the threads"));
-	return (0);
+	pthread_mutex_lock(&philo->mutex);
+	philo->is_eating = 1;
+	philo->last_eat = get_time();
+	philo->limit = philo->last_eat + philo->state->time_to_die;
+	display_message(philo, TYPE_EAT);
+	usleep(philo->state->time_to_eat * 1000);
+	philo->eat_c++;
+	philo->is_eating = 0;
+	pthread_mutex_unlock(&philo->mutex);
+	pthread_mutex_unlock(&philo->eat);
 }

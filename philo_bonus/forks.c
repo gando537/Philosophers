@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 16:49:36 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/03 17:25:04 by mdiallo          ###   ########.fr       */
+/*   Created: 2021/07/19 16:16:22 by mdiallo           #+#    #+#             */
+/*   Updated: 2021/11/08 17:36:29 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philosophers.h"
 
-int		main(int argc, char **argv)
+void	take_forks(t_philo *philo)
 {
-	t_rules	rules;
-	int		ret;
+	sem_wait(philo->state->fork_);
+	display_message(philo, TYPE_FORK);
+	sem_wait(philo->state->fork_);
+	display_message(philo, TYPE_FORK);
+}
 
-	if (argc != 5 && argc != 6)
-		return (write_error("Wrong amount of arguments"));
-	ret = init_all(&rules, argv);
-	if (ret)
-		return (error_manager(ret));
-	if (launcher(&rules))
-		return (write_error("There was an error creating the threads"));
-	return (0);
+void	clean_forks(t_philo *philo)
+{
+	display_message(philo, TYPE_SLEEP);
+	sem_post(philo->state->fork_);
+	sem_post(philo->state->fork_);
+	usleep(philo->state->time_to_sleep * 1000);
 }
