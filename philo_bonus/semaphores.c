@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 15:46:11 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:47:33 by mdiallo          ###   ########.fr       */
+/*   Updated: 2021/11/24 18:01:26 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,16 @@ char	*make_semaphore_name(char const *base, char *buffer, int position)
 int	start_process(t_state *state)
 {
 	int			i;
-	void		*philo;
 
 	state->start = get_time();
 	i = 0;
 	while (i < state->nb_philo)
 	{
-		philo = (void *)(&state->philo[i]);
 		state->philo[i].pid = fork();
 		if (state->philo[i].pid < 0)
 			return (1);
 		else if (state->philo[i].pid == 0)
-		{
 			_loop_(&state->philo[i]);
-			exit(0);
-		}
 		usleep(100);
 		i++;
 	}

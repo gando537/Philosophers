@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:16:49 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:42:22 by mdiallo          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:21:24 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	display_message(t_philo *philo, int type)
 	if (type != TYPE_OVER)
 		ft_putnbr_fd(philo->pos, 1);
 	write(1, get_message(type), ft_strlen(get_message(type)));
+	sem_post(philo->state->write_);
 	if (type < TYPE_DIED)
 		sem_post(philo->state->dead_write);
-	sem_post(philo->state->write_);
 }

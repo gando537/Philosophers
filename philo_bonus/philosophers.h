@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:16:42 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:37:18 by mdiallo          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:18:45 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define SEMAPHORE_DEADW	"pSemaphoreDeadWrite"
 # define SEMAPHORE_PHILO	"pSemaphorePhilo"
 # define SEMAPHORE_PHILOEAT	"pSemaphorePhiloEat"
+# define SEMAPHORE_FRK		"pSemaphoreFrk"
 
 # define TYPE_EAT 	0
 # define TYPE_SLEEP 1
@@ -41,9 +42,6 @@ typedef struct s_philo
 {
 	pid_t			pid;
 	int				pos;
-	int				is_eating;
-	int				fork_l;
-	int				fork_r;
 	int				eat_c;
 	u_int64_t		limit;
 	u_int64_t		last_eat;
@@ -61,6 +59,7 @@ typedef struct s_state
 	u_int64_t	time_to_sleep;
 	u_int64_t	start;
 	t_philo		*philo;
+	sem_t		*frk;
 	sem_t		*fork_;
 	sem_t		*write_;
 	sem_t		*somebody_dead;

@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:17:02 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:49:55 by mdiallo          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:33:20 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void	*_manager_(void *_philo_)
 	t_philo	*philo;
 
 	philo = (t_philo *) _philo_;
-	while (1)
+	while (42)
 	{
 		sem_wait(philo->mutex);
-		if (!philo->is_eating && get_time() > philo->limit)
+		if (get_time() > philo->limit)
 		{
 			display_message(philo, TYPE_DIED);
 			sem_post(philo->mutex);
@@ -61,16 +61,18 @@ void	*_loop_(void *_philo_)
 	philo->last_eat = get_time();
 	philo->limit = philo->last_eat + philo->state->time_to_die;
 	if (pthread_create(&tid, NULL, &_manager_, _philo_) != 0)
-		return ((void *) 1);
+		exit (1);
 	pthread_detach(tid);
-	while (1)
+	while (42)
 	{
+		sem_wait(philo->state->frk);
 		take_forks(philo);
+		sem_post(philo->state->frk);
 		eat(philo);
 		clean_forks(philo);
 		display_message(philo, TYPE_THINK);
 	}
-	return ((void *) 0);
+	exit (0);
 }
 
 static int	_threads_(t_state *state)

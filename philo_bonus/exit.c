@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:10:47 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:47:09 by mdiallo          ###   ########.fr       */
+/*   Updated: 2021/11/24 17:20:26 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	all_clear(t_state *state)
 	sem_unlink(SEMAPHORE_WRITE);
 	sem_unlink(SEMAPHORE_DEAD);
 	sem_unlink(SEMAPHORE_DEADW);
+	sem_unlink(SEMAPHORE_FRK);
 	if (state->philo)
 	{
 		i = 0;

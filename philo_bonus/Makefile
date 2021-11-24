@@ -6,7 +6,7 @@
 #    By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 15:57:36 by mdiallo           #+#    #+#              #
-#    Updated: 2021/11/08 16:57:59 by mdiallo          ###   ########.fr        #
+#    Updated: 2021/11/23 16:31:33 by mdiallo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAME): $(OBJ)
 	@echo "Executable "$(NAME)" made"
 
 $(OBJ_PATH)/%.o: %.c
-	@mkdir -p $(OBJ_PATH) 2> /dev/null || true
+	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:17:02 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:46:19 by mdiallo          ###   ########.fr       */
+/*   Updated: 2021/11/23 17:17:41 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	*_manager_(void *_philo_)
 	t_philo	*philo;
 
 	philo = (t_philo *) _philo_;
-	while (1)
+	while (42)
 	{
 		pthread_mutex_lock(&philo->mutex);
 		if (!philo->is_eating && get_time() > philo->limit)
@@ -63,7 +63,7 @@ static void	*_loop_(void *_philo_)
 	if (pthread_create(&tid, NULL, &_manager_, _philo_) != 0)
 		return ((void *) 1);
 	pthread_detach(tid);
-	while (1)
+	while (42)
 	{
 		take_forks(philo);
 		eat(philo);
