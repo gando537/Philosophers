@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:16:49 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/24 17:21:24 by mdiallo          ###   ########.fr       */
+/*   Updated: 2022/01/24 14:25:11 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*get_message(int type)
 	else if (type == TYPE_THINK)
 		return ("\033[35m is thinking\033[00m\n");
 	else if (type == TYPE_OVER)
-		return ("must eat count reached\n");
+		return ("\033[34m must eat count reached\033[00m\n");
 	return ("\033[31m died\033[00m\n");
 }
 

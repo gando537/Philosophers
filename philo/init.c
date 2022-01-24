@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 16:16:36 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/08 17:45:34 by mdiallo          ###   ########.fr       */
+/*   Updated: 2022/01/24 15:44:55 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	init_philos(t_state *state)
 		state->philo[i].is_eating = 0;
 		state->philo[i].fork_l = i;
 		state->philo[i].fork_r = (i + 1) % state->nb_philo;
-		state->philo[i].eat_c = 0;
 		state->philo[i].state = state;
 		pthread_mutex_init(&state->philo[i].mutex, NULL);
 		pthread_mutex_init(&state->philo[i].eat, NULL);

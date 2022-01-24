@@ -6,7 +6,7 @@
 /*   By: mdiallo <mdiallo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 15:16:42 by mdiallo           #+#    #+#             */
-/*   Updated: 2021/11/24 17:18:45 by mdiallo          ###   ########.fr       */
+/*   Updated: 2022/01/24 15:40:51 by mdiallo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_philo
 {
 	pid_t			pid;
 	int				pos;
-	int				eat_c;
 	u_int64_t		limit;
 	u_int64_t		last_eat;
 	struct s_state	*state;
